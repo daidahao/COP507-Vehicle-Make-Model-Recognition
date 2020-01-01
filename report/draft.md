@@ -1,0 +1,38 @@
+- Introduction
+  - VMMR (Related Work)
+  - Dataset
+- System Design
+  - Assumptions
+  - (Graphical User Interface)
+  - Feature Extraction
+    - Raw Image
+    - Sobel Edge Response
+    - Square Mapped Gradients
+    - Recursive Harris Corner
+    - SURF + K-Means
+  - Dimension Reduction
+    - PCA
+  - Classification
+    - SVM
+    - KNN
+  - (Algorithm-Parameter)
+- Experiments and Results
+  - Enviroment: System, memory ...
+  - Pre-processing
+    - Crop, convert to gray ...
+    - Scale
+    - Split into train & valid
+  - Cross-validation
+  - Merits (accuracy, prevision, recall, etc)
+  - Effects of Feature Extraction
+  - Effects of Dimension Reduction
+  - Effects of Classification
+  - (Effects of Brand Features ...)
+- Convolutional Neural Network Model
+  - Diagram
+  - Layers
+  - Strategies to prevent overfitting
+  - Size of dataset
+  - Solutions... (transfer learning?)
+
+- Conclusions
