@@ -19,7 +19,7 @@ In this paper, we design and implement a VMMR system. The input to the system is
 
 Due to the significance of VMMR systems, many approaches have been proposed for building VMMR systems in recent years. 
 % Analysis of Features for Rigid Structure Vehicle Type Recognition.
-Petrovic and Cootes \citep{petrovic2004analysis} extracted simple features such as Sobel Gradients, Edge Orientation, Square Mapped Gradients from images in the database. 
+Petrovic and Cootes \citep{petrovic2004analysis} extracted simple features such as Sobel Edge Response, Edge Orientation, Square Mapped Gradients from images in the database. 
 Features are then represented and stored either in full dimension or in low dimension through Principal Component Analysis (PCA).
 Given a new image, the VMMR system predicts the vehicle type by finding the closest match in dot product distance.
 Their experiments on a dataset of $1132$ frontal images of $77$ vehicle classes showed that direct matching by Square Mapped Gradients features achieved the lowest vertification error of $3.5\%$.
@@ -31,10 +31,10 @@ While global shape descriptors capture differences across categories, local shap
 An image is matched to the class with the smallest weighted sum of global and local dissimilarity measures.
 
 % Automatic Make and Model Recognition from Frontal Images of Cars.
-Pearce and Pears \citep{pearce2011automatic} suggested using Harris corner detectors \citep{harris1988combined} for feature extraction and either k-nearest neighbour (KNN) or Naive Bayes Classifier for classification in VMMR systems.
+Pearce and Pears \citep{pearce2011automatic} suggested using Harris corner detectors \citep{harris1988combined} for feature extraction and either K-Nearest Neighbour (KNN) or Naive Bayes Classifier for classification in VMMR systems.
 Local Harris strengths are computed through recursively dividing the image into quadrants and computing the sum of Harris corner response for each quadrant.
 Such features are then normalised through being devided by the sum of higher level strengths.
-For an input image of 150 by 150, a feature vector of Locally normalised Harris strengths (LNHS) of depth 5 is retrived and only one-twentieth the size of the original response.
+For an input image of 150 by 150, a feature vector of Locally Normalised Harris Strengths (LNHS) of depth 5 is retrived and only one-twentieth the size of the original response.
 Their experiments on a dataset of $262$ frontal images of $74$ vehicle classes showed that LNHS with Naive Bayes Classifier achieved the highest accuracy of $96\%$. 
 Using LNHS as features speeds up the training of a classifier and does not reduce the accuracy.
 
@@ -73,9 +73,22 @@ Fraz et al. reported an accuracy of $97.60\%$ on the dataset used in \citep{zafa
 
 
 \section{Dataset}
-Our proposed system is trained and evaluated on a superset of the dataset in \citep{zafar2007two,zafar2009localized,fraz2014mid} of $530$ frontal images from $27$ vehicle classes.
+There is a diverse set of datasets for VMMR task and Tafazzoli et al. \citep{tafazzoli2017large} presented a thorough survey of them.
+Our proposed system is trained and evaluated on a superset of the dataset in \citep{zafar2007two,zafar2009localized,fraz2014mid} of $530$ frontal images from $27$ vehicle make and model classes.
+For each class, $6$ images are used for training and the rest for validation.
 
-Despite having a smaller number of $4$ training images per vehicle class compared to $8$ in \citep{zafar2007two} and $10$ in \citep{zafar2007two} and simplicity of gradients features compared to MLR in \citep{fraz2014mid}, our method achieves a higher accuracy score of $98\%$ on the validation set.
+\section{Comparison to Our Method}
+
+In this paper, we make use of 
+Raw Image Pixels, Sobel Edge Response and Square Mapped Gradients following Petrovic and Cootes's \citep{petrovic2004analysis} work, 
+Locally Normalised Harris Strengths (LNHS) from Pearce and Pears's work \citep{pearce2011automatic}, and 
+Bag of Speeded Up Robust Features (SURF) from Siddiqui et al.'s work \citep{siddiqui2016real} 
+interchangeably in our feature extraction module.
+We use Principal Component Analysis (PCA) for optional dimensionality reduction module and either 
+K-Nearest Neighbour (KNN) or
+Support Vector Machine (SVM) for classification module.
+
+Despite having a smaller number of $4$ training images per vehicle class compared to $8$ in Zafar et al.'s work \citep{zafar2007two} and $10$ in Zafar et al.'s work \citep{zafar2009localized} and simplicity of features computation compared to Mid-Level-Representation in Fraz et al.'s work \citep{fraz2014mid}, our method achieves a higher accuracy score of $98\%$ on the validation set.
 
 
 
