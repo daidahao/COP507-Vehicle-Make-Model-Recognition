@@ -10,7 +10,7 @@
     - Square Mapped Gradients
     - Recursive Harris Corner
     - SURF + K-Means
-  - Dimension Reduction
+  - Dimensionality Reduction
     - PCA
   - Classification
     - SVM
@@ -25,7 +25,7 @@
   - Cross-validation
   - Merits (accuracy, prevision, recall, etc)
   - Effects of Feature Extraction
-  - Effects of Dimension Reduction
+  - Effects of Dimensionality Reduction
   - Effects of Classification
   - (Effects of Brand Features ...)
 - Convolutional Neural Network Model
