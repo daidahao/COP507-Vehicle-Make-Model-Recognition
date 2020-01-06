@@ -4,7 +4,7 @@
 - System Design
   - Assumptions
   - (Graphical User Interface)
-  - Feature Extraction
+  - Features Extraction
     - Raw Image
     - Sobel Edge Response
     - Square Mapped Gradients
@@ -24,7 +24,7 @@
     - Split into train & valid
   - Cross-validation
   - Merits (accuracy, prevision, recall, etc)
-  - Effects of Feature Extraction
+  - Effects of Features Extraction
   - Effects of Dimensionality Reduction
   - Effects of Classification
   - (Effects of Brand Features ...)
@@ -36,3 +36,10 @@
   - Solutions... (transfer learning?)
 
 - Conclusions
+
+
+
+
+
+Image -> ROI -> Features Extraction -> Dimensionality Reduction -> Classification
+
