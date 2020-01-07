@@ -43,3 +43,14 @@
 
 Image -> ROI -> Features Extraction -> Dimensionality Reduction -> Classification
 
+
+
+Paramaters:
+
+- LNHS depth
+- BSURF size
+- PCA explained
+- KNN K
+
+
+

@@ -27,7 +27,7 @@ At the first stage, \textbf{Features Extraction Module} extracts features from t
 
 \begin{figure}
 \centering
-% \includegraphics{system}
+\includegraphics{system}
 \caption{Block Diagram of Our Proposed VMMR System.}
 \label{fig:system}
 \end{figure}
@@ -158,12 +158,12 @@ Depth is the sole parameter in extracting LNHS features.
 
 \subsection{Bag of Speeded Up Robust Features (BSURF)}
 To compute a BSURF vector, SURF features \citep{bay2006surf} are first detected and extracted from the image.
-A bag of visual words can be constructed by grouping all SURF feature descriptors from the training set into $T$ clusters using K-Means algorithm.
+A dictionary (bag) of visual words can be constructed by grouping all SURF feature descriptors from the training set into $T$ clusters (viusal words) using K-Means algorithm.
 
-Given any image $I$, each SURF descriptor extracted can then be assigned to the nearest among the above $T$ clusters.
+Given any image $I$, each SURF descriptor extracted can then be assigned to the nearest among the above $T$ visual words.
 The BSURF feature vector $F$ for $I$ is a vector for visual words occurrences of fixed length $T$.
 
-The number of clusters $T$ is the most important paramter in BSURF and is examined in our experiments.
+The size of the dictionary $T$ is the most important paramter in BSURF and is examined in our experiments.
 
 
 
@@ -189,13 +189,15 @@ $X$ is then reduced in dimensionality to produce $X'$.
 X' = X W_L
 \end{equation}
 
-where $W_L$ only preserves the first $L$ columns of $W$.
+where $W_L$ only preserves the first $L$ columns (principal components) of $W$.
 
 Likewise, for any 1-by-n feature vector $F$, a new vector $F'$ reduced in dimensionality can be derived.
 
 \begin{equation}
 F' = F W_L
 \end{equation}
+
+The value of $L$ can be determined by the total percentage $\sigma$ of the total variance explained by principal components.
 
 \section{Classification}
 K-Nearest Neighbour (KNN) and Support Vector Machine (SVM) are used interchangeably in Classification Module. Their perforamnce are examined and compared in Section \ref{sec:effects-cls}.
@@ -205,9 +207,11 @@ KNN is the simpest machine learning algorithm.
 A KNN classifier finds $K$-nearest neighbours for the input vector by Euclidean distance. 
 The classifier then assigns each input vector to the most frequent class among its $K$-nearest neighbours.
 
-
+The size of the clusters $K$ is the sole parameter in KNN and its effects on VMMR perforamnce is examined in Section \ref{sec:effects-cls}.
 
 \subsection{Support Vector Machine (SVM)}
 In binary classification, SVM classifies each feature vector by learning to map in-coming features vectors into a separate space.
-In multi-calss scnerario,  
+In multi-calss scnerario, $C(C-1)/2$ binary SVM classifiers are trained using the one-versus-one scheme, where $C$ is the number of vehicle classes.
+
+
 
