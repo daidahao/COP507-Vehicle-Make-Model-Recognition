@@ -1,13 +1,14 @@
-function [training_score, validation_score] = reduce_dimensionality(training_features, ...
-            validation_features, sigma)
-    [coeff,scoreTraining,~,~,explained,mu] = pca(training_features);
+function [score] = reduce_dimensionality(features, profile)
+    if strcmp(profile.reduce, 'none')
+        score = features; return;
+    end
+    [~,scoreTraining,~,~,explained,~] = pca(features);
     sum_explained = 0;
     idx = 0;
-    while sum_explained < sigma
+    while sum_explained < profile.reduce_options.sigma
         idx = idx + 1;
         sum_explained = sum_explained + explained(idx);
     end
-    training_score = scoreTraining(:, 1:idx);
-    validation_score = (validation_features - mu) * coeff(:, 1:idx);
+    score = scoreTraining(:, 1:idx);
 end
 

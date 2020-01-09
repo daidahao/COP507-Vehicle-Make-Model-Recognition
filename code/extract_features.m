@@ -1,15 +1,19 @@
-function [training_features, validation_features] = ...
-    extract_features(training_set, validation_set, features_name)
-    switch features_name
+function features = extract_features(dataset, profile)
+    switch profile.features
         case 'raw'
-            training_features = transform_into_features(training_set, @features_raw);
-            validation_features = transform_into_features(validation_set, @features_raw);
+            features = transform_into_features(dataset, @features_raw);
+        case 'ser'
+            features = transform_into_features(dataset, @features_ser);
         case 'smg'
-            training_features = transform_into_features(training_set, @features_smg);
-            validation_features = transform_into_features(validation_set, @features_smg);
+            features = transform_into_features(dataset, @features_smg);
         case 'lnhs'
-            training_features = transform_into_features(training_set, @features_harris);
-            validation_features = transform_into_features(validation_set, @features_harris);
+            depth = profile.features_options.depth;
+            features = transform_into_features(dataset, ...
+                @(img) features_harris(img, depth));
+        case 'bsurf'
+            bag = bagOfFeatures(dataset, ...
+                'VocabularySize', profile.features_options.t);
+            features = encode(bag, dataset);
     end
 end
 

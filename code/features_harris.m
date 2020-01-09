@@ -1,6 +1,5 @@
-function f = features_harris(img)
+function f = features_harris(img, depth)
     harris_response = harris(img, 1, 1e-6);
-    depth = 5;
     f = divide_and_extract(harris_response, depth)';
 end
 
@@ -20,8 +19,13 @@ function y = divide_and_extract(I, depth)
             divide_and_extract(C, depth);divide_and_extract(D, depth)];
     end
     summ = sum(I, 'all');
-    y(end+1, 1) = sum(A, 'all') / summ;
-    y(end+1, 1) = sum(B, 'all') / summ;
-    y(end+1, 1) = sum(C, 'all') / summ;
-    y(end+1, 1) = sum(D, 'all') / summ;
+    if summ == 0
+        y(end+1:end+4, 1) = 0;
+    else
+        y(end+1, 1) = sum(A, 'all') / summ;
+        y(end+1, 1) = sum(B, 'all') / summ;
+        y(end+1, 1) = sum(C, 'all') / summ;
+        y(end+1, 1) = sum(D, 'all') / summ;
+    end
 end
+
