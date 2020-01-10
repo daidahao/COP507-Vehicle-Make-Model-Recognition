@@ -1,3 +1,6 @@
+% Train a model for VMMR tasks, following the architecture of
+% our proposed VMMR system.
+
 clear; clc;
 addpath('harris');
 % Path to the pre-processed dataset folder
@@ -17,16 +20,19 @@ dataset = imageDatastore(config.dataset_path,...
      'ReadFcn', scale_fcn...
 );
 
+% Generate profiles for training
 profiles = generate_profiles();
 
 for i = 1:length(profiles)
+    % Training results including model, predictions, scores, etc.
+    % are stored into "results"
     results(i) = train_profile(dataset, profiles(i), config);
 end
 
 function profile = train_profile(dataset, profile, config)
     % Reuse the previous random generator s
     rng(config.s);
-    % Extract features from both sets
+    % Extract features from dataset
     features = extract_features(dataset, profile);
     profile.size = size(features);
     disp(profile.size);
@@ -36,7 +42,7 @@ function profile = train_profile(dataset, profile, config)
     disp(profile.reduced_size);
     % Train a classifier
     profile.mdl = classify(features, dataset.Labels, profile, config);
-    % Predict on validation set
+    % Predict on the dataset using k-fold
     profile.pred = kfoldPredict(profile.mdl);
     % Calculate scores
     [profile.accuracy, profile.precision, profile.recall, profile.f1] = ...

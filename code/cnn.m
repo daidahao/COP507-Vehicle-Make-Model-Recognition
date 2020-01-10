@@ -1,16 +1,27 @@
+% Train a CNN model for VMMR tasks, following our proposed
+% architecture
+
 clear; clc;
+% Path to the pre-processed dataset folder
 config.dataset_path = '../dataset';
+% Resolution for scaling
 config.resolution = [140,140];
 scale_fcn = @(x) imresize(imread(x), config.resolution, 'bilinear');
+% Number of images per class for training
 config.num_train_imgs_per_model = 6;
+% Read images into a imageDatastore
 dataset = imageDatastore(config.dataset_path,...
     'IncludeSubfolders',true,...
     'LabelSource','foldernames',...
      'ReadFcn', scale_fcn...
 );
+% Set seed for random generator to constant
+% in order to get consistent results
 config.s = rng(1);
+% Split dataset into training and validation sets
 [training_set, validation_set] = splitEachLabel(dataset, config.num_train_imgs_per_model, 'randomize');
 
+% Build a simple CNN model
 layers = [
     imageInputLayer([140 140 1],"Name","imageinput")
     convolution2dLayer([5 5],32,"Name","conv_1","Padding","same","Stride",[2 2])
@@ -26,6 +37,7 @@ layers = [
     softmaxLayer("Name","softmax")
     classificationLayer("Name","classoutput")];
 
+% Options for training
 options = trainingOptions('adam', ...
     'MiniBatchSize',20, ...
     'MaxEpochs',200, ...
@@ -36,4 +48,5 @@ options = trainingOptions('adam', ...
     'Verbose',false, ...
     'Plots','training-progress');
 
+% Train the CNN model
 netTransfer = trainNetwork(training_set,layers,options);

@@ -1,3 +1,12 @@
+% Generate profiles for training
+%
+% Usage:
+%       profiles = generate_profiles()
+% Returns:
+%       profiles    -   A set of training profile structs specifying
+%                       features, features_options, 
+%                       reduce, reduce_options, 
+%                       classifier, classifier_options
 function profiles = generate_profiles()
     prof_features = generate_profiles_features();
     prof_dimension = generate_profiles_dimension();

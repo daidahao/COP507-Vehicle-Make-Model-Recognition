@@ -1,3 +1,13 @@
+% Reduce dimensionality of features
+%
+% Usage:
+%       [features_reduced] = reduce_dimensionality(features, profile)
+% Arguements:
+%       features    -   Matrix of features
+%       profile     -   Training profile
+% Returns:
+%       features_reduced    -   Matrix of features reduced in 
+%                               dimensionality
 function [score] = reduce_dimensionality(features, profile)
     if strcmp(profile.reduce, 'none')
         score = features; return;

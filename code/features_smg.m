@@ -1,3 +1,11 @@
+% Extract Square Mapped Gradients (SMG) features from the image
+%
+% Usage:
+%       f = features_smg(img)
+% Arguements:
+%       img     -   Image to be extracted features from.
+% Returns:
+%       f    	-   A smg feature vector.
 function f = features_smg(img)
     [sx, sy] = imgradientxy(img, 'sobel');
     gx = (sx.^2 - sy.^2) ./ (sx.^2 + sy.^2);

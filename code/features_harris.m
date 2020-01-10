@@ -1,5 +1,17 @@
+% Extract Locally Normalised Harris Strengths (LNHS) 
+% features from the image
+%
+% Usage:
+%       f = features_harris(img)
+% Arguements:
+%       img     -   Image to be extracted features from.
+% Returns:
+%       f       -   A lnhs feature vector.
 function f = features_harris(img, depth)
+    % Harris corner detector is provided by Peter Kovesi
+    % source: https://www.peterkovesi.com/matlabfns/
     harris_response = harris(img, 1, 1e-6);
+    % Recursive computation for LNHS
     f = divide_and_extract(harris_response, depth)';
 end
 

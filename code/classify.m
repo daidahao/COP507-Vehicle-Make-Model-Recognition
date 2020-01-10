@@ -1,3 +1,14 @@
+% Train a classification model
+%
+% Usage:
+%       mdl = classify(features, labels, profile, config)
+% Arguements:
+%       features      -   Matrix of features
+%       labels        -   True labels
+%       profile       -   Training profile
+%       config        -   Global configuration
+% Returns:
+%       mdl    -   a trained cross-validated classification model
 function mdl = classify(features, labels, profile, config)
     switch profile.classifier
         case 'svm'
