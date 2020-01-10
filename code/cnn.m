@@ -1,0 +1,39 @@
+clear; clc;
+config.dataset_path = '../dataset';
+config.resolution = [140,140];
+scale_fcn = @(x) imresize(imread(x), config.resolution, 'bilinear');
+config.num_train_imgs_per_model = 6;
+dataset = imageDatastore(config.dataset_path,...
+    'IncludeSubfolders',true,...
+    'LabelSource','foldernames',...
+     'ReadFcn', scale_fcn...
+);
+config.s = rng(1);
+[training_set, validation_set] = splitEachLabel(dataset, config.num_train_imgs_per_model, 'randomize');
+
+layers = [
+    imageInputLayer([140 140 1],"Name","imageinput")
+    convolution2dLayer([5 5],32,"Name","conv_1","Padding","same","Stride",[2 2])
+    reluLayer("Name","relu_1")
+    maxPooling2dLayer([3 3],"Name","maxpool_1","Padding","same","Stride",[2 2])
+    convolution2dLayer([3 3],32,"Name","conv_2","Padding","same","Stride",[2 2])
+    reluLayer("Name","relu_2")
+    maxPooling2dLayer([3 3],"Name","maxpool_2","Padding","same","Stride",[2 2])
+    fullyConnectedLayer(256,"Name","fc_1")
+    reluLayer("Name","relu_4")
+    dropoutLayer(0.5,"Name","dropout")
+    fullyConnectedLayer(27,"Name","fc_2")
+    softmaxLayer("Name","softmax")
+    classificationLayer("Name","classoutput")];
+
+options = trainingOptions('adam', ...
+    'MiniBatchSize',20, ...
+    'MaxEpochs',200, ...
+    'InitialLearnRate',1e-4, ...
+    'Shuffle','every-epoch', ...
+    'ValidationData',validation_set, ...
+    'ValidationFrequency',3, ...
+    'Verbose',false, ...
+    'Plots','training-progress');
+
+netTransfer = trainNetwork(training_set,layers,options);
