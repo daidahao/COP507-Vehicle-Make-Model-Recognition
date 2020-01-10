@@ -1,6 +1,12 @@
-\chapter{Discussion}
-\label{chap:discussion}
+\chapter{Conclusions}
+\label{chap:conclusions}
 
-\section{Conclusions}
+In this paper, a general architecture of VMMR system is proposed. Three main modules of the proposed system are Features Extraction Module, Dimensionality Reduction Module (optional) and Classification Module respectively.
 
-\section{Future Work}
+A variety of features extraction methods are compared and it is concluded that SMG achives the best performance among all.
+Using SVM in Classification Module produces better performance than KNN under a variety set of $K$ values.
+In addition, applying PCA as dimensionality reduction method to the feature vector does not affect the performance at all.
+
+The best performance is achieved on the dataset when SMG is used for feature extraction, PCA ($\sigma = 70$) for dimensionality reduction and SVM for classification.
+The model produces an accuracy score of $99.62\%$, precision of $99.77\%$, recall of $99.62\%$ and F1-score of $99.70\%$.
+Only $2$ misclassifications are made.
