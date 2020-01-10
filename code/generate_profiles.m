@@ -26,22 +26,24 @@ function prof_features = generate_profiles_features()
     opt_lnhs = struct('depth', {1, 2, 3, 4, 5, 6, 7});
     opt_bsurf = struct('t', {500, 1000, 2000, 4000, 8000, 16000, 32000});
 
-    prof_simple = struct('features', 'smg', 'features_options', 0);    
     prof_simple = struct('features', {'raw', 'ser', 'smg'}, 'features_options', 0);
+    prof_simple = struct('features', 'smg', 'features_options', 0);    
     prof_lnhs = struct('features', 'lnhs', 'features_options', num2cell(opt_lnhs));
     prof_bsurf = struct('features', 'bsurf', 'features_options', num2cell(opt_bsurf));
     
     prof_features = [prof_simple prof_lnhs prof_bsurf];
+    prof_features = prof_simple;
 end
 
 function prof_dimension = generate_profiles_dimension()
-    opt_pca = struct('sigma', {70});
     opt_pca = struct('sigma', {50, 60, 70, 80, 90, 95, 99});
+    opt_pca = struct('sigma', {70});
     
     prof_none = struct('reduce', 'none', 'reduce_options', 0);
     prof_pca = struct('reduce', 'pca', 'reduce_options', num2cell(opt_pca));
     
     prof_dimension = [prof_none prof_pca];
+    prof_dimension = prof_pca;
 end
 
 function prof_classifier = generate_profiles_classifier()
@@ -51,4 +53,5 @@ function prof_classifier = generate_profiles_classifier()
     prof_svm = struct('classifier', 'svm', 'classifier_options', 0);
     
     prof_classifier = [prof_knn prof_svm];
+    prof_classifier = prof_svm;
 end

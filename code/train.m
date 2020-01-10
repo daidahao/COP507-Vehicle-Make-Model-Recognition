@@ -29,6 +29,7 @@ for i = 1:length(profiles)
     results(i) = train_profile(dataset, profiles(i), config);
 end
 
+
 function profile = train_profile(dataset, profile, config)
     % Reuse the previous random generator s
     rng(config.s);
@@ -37,13 +38,15 @@ function profile = train_profile(dataset, profile, config)
     profile.size = size(features);
     disp(profile.size);
     % Reduce dimensionality for features
-    features = reduce_dimensionality(features, profile);
+    [features, profile.mu, profile.coeff] = ...
+        reduce_dimensionality(features, profile);
     profile.reduced_size = size(features);
     disp(profile.reduced_size);
     % Train a classifier
-    profile.mdl = classify(features, dataset.Labels, profile, config);
+    [profile.mdl, profile.mdl_cv] = ...
+        classify(features, dataset.Labels, profile, config);
     % Predict on the dataset using k-fold
-    profile.pred = kfoldPredict(profile.mdl);
+    profile.pred = kfoldPredict(profile.mdl_cv);
     % Calculate scores
     [profile.accuracy, profile.precision, profile.recall, profile.f1] = ...
         performance_scores(dataset.Labels, profile.pred);
