@@ -76,8 +76,7 @@ Fraz et al. reported an accuracy of $97.60\%$ on the dataset used in \citep{zafa
 \label{sec:dataset}
 There is a diverse set of datasets for VMMR task and Tafazzoli et al. \citep{tafazzoli2017large} presented a thorough survey of them.
 Our proposed system is trained and evaluated on a superset of the dataset in \citep{zafar2007two,zafar2009localized,fraz2014mid} of $530$ frontal images from $27$ vehicle make and model classes.
-For each class, $6$ images are used for training and the rest for validation.
-Both the training set and validation set are pre-processed to extract Regions of Interest (ROI). See Section \ref{sec:pre-processing} for more details.
+The dataset is pre-processed to extract Regions of Interest (ROI). See Section \ref{sec:pre-processing} for more details.
 
 \begin{figure}
 \centering
@@ -97,7 +96,7 @@ We use Principal Component Analysis (PCA) for optional dimensionality reduction 
 K-Nearest Neighbour (KNN) or
 Support Vector Machine (SVM) for classification module.
 
-Despite having a smaller number of $6$ training images per vehicle class compared to $8$ in Zafar et al.'s work \citep{zafar2007two} and $10$ in Zafar et al.'s work \citep{zafar2009localized} and simplicity of features computation compared to Mid-Level-Representation in Fraz et al.'s work \citep{fraz2014mid}, our method achieves a higher accuracy score of $98\%$ on the validation set.
+Despite the simplicity of features computation compared to Mid-Level-Representation in Fraz et al.'s work \citep{fraz2014mid}, our method achieves a higher accuracy score of $99\%$ on the dataset.
 
 
 

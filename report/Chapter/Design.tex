@@ -154,11 +154,11 @@ The overall LNHS feature vector $F$ is concantaion of LNHS vector of depth $1$ a
 F = (L_1, L_2)
 \end{equation}
 
-Depth is the sole parameter in extracting LNHS features.
+Depth $d$ is the sole parameter in extracting LNHS features.
 
 \subsection{Bag of Speeded Up Robust Features (BSURF)}
 To compute a BSURF vector, SURF features \citep{bay2006surf} are first detected and extracted from the image.
-A dictionary (bag) of visual words can be constructed by grouping all SURF feature descriptors from the training set into $T$ clusters (viusal words) using K-Means algorithm.
+A dictionary (bag) of visual words can be constructed by grouping all SURF feature descriptors from the dataset into $T$ clusters (viusal words) using K-Means algorithm.
 
 Given any image $I$, each SURF descriptor extracted can then be assigned to the nearest among the above $T$ visual words.
 The BSURF feature vector $F$ for $I$ is a vector for visual words occurrences of fixed length $T$.
@@ -174,7 +174,7 @@ Such reduction speeds up the training and reduces the complexity of a classifier
 \subsection{Principal Component Analysis (PCA)}
 PCA maps high-dimensional data into a new low-dimensional coordinate system through Singular Value Decomposition (SVD).
 
-Durining training, a high-dimensional matrix $X$ is formed, where each row is a feature vector $F$ extracted from a image in the training set.
+Durining training, a high-dimensional matrix $X$ is formed, where each row is a feature vector $F$ extracted from a image in the dataset.
 SVM docomposes $X$ into a product of $3$ matrices.
 
 \begin{equation}
@@ -211,7 +211,7 @@ The size of the clusters $K$ is the sole parameter in KNN and its effects on VMM
 
 \subsection{Support Vector Machine (SVM)}
 In binary classification, SVM classifies each feature vector by learning to map in-coming features vectors into a separate space.
-In multi-calss scnerario, $C(C-1)/2$ binary SVM classifiers are trained using the one-versus-one scheme, where $C$ is the number of vehicle classes.
+In multi-calss scnerario, $C$ binary SVM classifiers are trained using the one-versus-all scheme, where $C$ is the number of vehicle classes.
 
 
 
